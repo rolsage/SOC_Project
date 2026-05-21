@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  # ---------------------------------------------------------------------
+  # SERVICE 1 : Le Moteur de détection et de blocage automatique (SOC/IPS)
+  # ---------------------------------------------------------------------
+  soc-moteur:
+    build: .
+    container_name: soc-moteur-container
+    network_mode: "host"
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./network_traffic.log:/app/network_traffic.log
+    restart: always
+
+  # ---------------------------------------------------------------------
+  # SERVICE 2 : L'Interface Visuelle de Contrôle (Dashboard Streamlit)
+  # ---------------------------------------------------------------------
+  soc-dashboard:
+    build: .
+    container_name: soc-dashboard-container
+    network_mode: "host"
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./network_traffic.log:/app/network_traffic.log
+    command: ["streamlit", "run", "visualiser_soc.py", "--server.port=8501", "--server.address=0.0.0.0"]
+    restart: always
