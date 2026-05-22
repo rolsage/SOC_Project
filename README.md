@@ -1,23 +1,32 @@
-# 🚨 SOC & IPS Project - Automated Threat Intelligence
+# 🛡️ SOC & IPS Project - Surveillance Réseau & Détection d'Intrusions
 
-Ce projet consiste en la création d'un mini **SOC (Security Operations Center)** et d'un **IPS (Intrusion Prevention System)** automatisé en Python sous Kali Linux. Il permet de surveiller les journaux d'accès réseau en temps réel, de détecter les comportements malveillants et d'appliquer des contre-mesures immédiates.
+Ce projet implémente une solution légère de **SOC (Security Operations Center)** et d'**IPS (Intrusion Prevention System)** conteneurisée avec Docker et dotée d'un tableau de bord analytique en temps réel avec Streamlit.
 
-## 🌟 Fonctionnalités Clés
+L'application capture le trafic réseau suspect, applique des règles de blocage automatique (pare-feu), et centralise les alertes (`LOGIN_FAILED`, `SQL_INJECTION`, `PORT_SCAN`, `XSS`) dans une interface graphique interactive.
 
-* **Surveillance Active :** Analyse en temps réel des fichiers de logs réseau (`network_traffic.log`).
-* **Défense Locale Automatisée (IPS) :** Blocage dynamique des adresses IP suspectes via le pare-feu Linux `iptables` après 3 tentatives de connexion infructueuses (`LOGIN_FAILED`).
-* **Intégration Threat Intelligence Mondiale :** Connexion via API à la base de données globale **AbuseIPDB**.
-* **Défense Proactive :** Analyse instantanée de la réputation de chaque IP entrante. Si l'IP possède un score de suspicion mondiale supérieur à 50%, elle est bannie dès sa première tentative par anticipation.
+---
 
-## 🛠️ Technologies Utilisées
+## 🏗️ Architecture du Projet
 
-* **Système :** Kali Linux
-* **Langage :** Python 3 (Modules : `requests`, `subprocess`, `os`, `time`)
-* **Sécurité & Réseau :** Netfilter / `iptables` (Pare-feu Linux)
-* **Cyber-Intelligence :** API AbuseIPDB v2
+Le projet est divisé en deux composants clés :
+1. **Le Moteur de Détection (SOC/IPS)** : S'exécute dans un conteneur Docker isolé mais configuré en mode réseau `host` avec les capacités `NET_ADMIN`. Il analyse les flux et peut interagir directement avec le pare-feu du système pour bannir les IP malveillantes.
+2. **Le Dashboard Visuel** : Une application Python locale basée sur **Streamlit** et **Plotly Express** qui lit le fichier de logs partagé (`network_traffic.log`) pour générer des statistiques et des graphiques dynamiques.
 
-## 🚀 Comment l'utiliser
+---
 
-1. Cloner le dépôt :
-   ```bash
-   git clone
+## 📋 Prérequis
+
+Avant de lancer le projet, assurez-vous de disposer des outils suivants sur votre machine (optimisé pour **Kali Linux**) :
+
+* Docker & Docker Compose
+* Python 3.x
+* Un environnement virtuel Python (`venv`)
+
+---
+
+## 🚀 Installation et Lancement
+
+### 1. Cloner le dépôt et se positionner
+```bash
+git clone [https://github.com/rolsage/SOC_Project.git](https://github.com/rolsage/SOC_Project.git)
+cd SOC_Project
