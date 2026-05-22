@@ -1,32 +1,19 @@
-# 🛡️ SOC & IPS Project - Surveillance Réseau & Détection d'Intrusions
+# 🛡️ Cybersécurité & IA : Network Analysis & SOC Project
 
-Ce projet implémente une solution légère de **SOC (Security Operations Center)** et d'**IPS (Intrusion Prevention System)** conteneurisée avec Docker et dotée d'un tableau de bord analytique en temps réel avec Streamlit.
+Ce projet présente le déploiement d'un **Mini-SOC (Security Operations Center)** et d'un système de détection/prévention des intrusions (IDS/IPS) conteneurisé, couplé à un tableau de bord d'analyse de trafic en temps réel.
 
-L'application capture le trafic réseau suspect, applique des règles de blocage automatique (pare-feu), et centralise les alertes (`LOGIN_FAILED`, `SQL_INJECTION`, `PORT_SCAN`, `XSS`) dans une interface graphique interactive.
+## 🚀 Fonctionnalités
+* **Moteur de Détection (Docker) :** Analyse du trafic réseau, détection des attaques par force brute (`LOGIN_FAILED`), scans de ports et injections.
+* **Atténuation automatique :** Bannissement des adresses IP malveillantes via des règles de pare-feu.
+* **Dashboard Interactif (Streamlit & Plotly) :** Visualisation graphique en temps réel des alertes de sécurité et monitoring du trafic.
 
----
+## 🛠️ Technologies Utilisées
+* **OS / Environnement :** Kali Linux
+* **Conteneurisation :** Docker, Docker Compose
+* **Langages :** Python (Pandas, Streamlit, Plotly, Kaleido)
+* **Sécurité :** Analyse de logs réseau, détection de patterns d'attaques
 
-## 🏗️ Architecture du Projet
-
-Le projet est divisé en deux composants clés :
-1. **Le Moteur de Détection (SOC/IPS)** : S'exécute dans un conteneur Docker isolé mais configuré en mode réseau `host` avec les capacités `NET_ADMIN`. Il analyse les flux et peut interagir directement avec le pare-feu du système pour bannir les IP malveillantes.
-2. **Le Dashboard Visuel** : Une application Python locale basée sur **Streamlit** et **Plotly Express** qui lit le fichier de logs partagé (`network_traffic.log`) pour générer des statistiques et des graphiques dynamiques.
-
----
-
-## 📋 Prérequis
-
-Avant de lancer le projet, assurez-vous de disposer des outils suivants sur votre machine (optimisé pour **Kali Linux**) :
-
-* Docker & Docker Compose
-* Python 3.x
-* Un environnement virtuel Python (`venv`)
-
----
-
-## 🚀 Installation et Lancement
-
-### 1. Cloner le dépôt et se positionner
-```bash
-git clone [https://github.com/rolsage/SOC_Project.git](https://github.com/rolsage/SOC_Project.git)
-cd SOC_Project
+## 📊 Capture d'Écran du Dashboard
+L'interface Streamlit génère une répartition dynamique des attaques détectées :
+* Alertes d'authentification échouées (`LOGIN_FAILED`)
+* Tentatives d'injections et scans de ports ciblés
